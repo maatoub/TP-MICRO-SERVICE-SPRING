@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.tp1service.DTOs.CustomerDTO;
@@ -17,6 +18,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/customer")
 
 public class CustomerController {
 
@@ -32,7 +34,7 @@ public class CustomerController {
         return service.getCustomer(id);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     public CustomerDTO addCustomerDTO(@RequestBody CustomerDTO customerDTO) throws EmailAlreadyUsedException {
         return service.saveCustomer(customerDTO);
     }
