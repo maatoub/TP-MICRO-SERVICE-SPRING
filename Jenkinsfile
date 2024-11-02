@@ -22,7 +22,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def imageTag = "pipeline-test:${env.BUILD_NUMBER}"
+                    def imageTag = "${DOCKER_USERNAME}/pipeline-test:${env.BUILD_NUMBER}"
                     bat "docker build -t ${imageTag} ."
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'username')]) {
                         bat "docker login -u %username% -p %password%"
@@ -35,7 +35,7 @@ pipeline {
         stage('Deploy to Docker') {
             steps {
                 script {
-                    def imageTag = "pipeline-test:${env.BUILD_NUMBER}"
+                    def imageTag = "${DOCKER_USERNAME}/pipeline-test:${env.BUILD_NUMBER}"
                     bat "docker run -d -p 8080:8080 ${imageTag}"
                 }
             }
