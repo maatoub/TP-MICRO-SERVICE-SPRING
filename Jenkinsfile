@@ -25,7 +25,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'username')]) {
                         def imageTag = "${username}/pipeline-test:${env.BUILD_NUMBER}"
                         bat "docker build -t ${imageTag} ."
-                        bat "echo %password% | docker login -u %username% --password-stdin"
+                        bat "docker login -u $username -p $password"
                         bat "docker push ${imageTag}"
                     }
                 }
